@@ -185,8 +185,11 @@ class LanguageTag {
       ];
 
   String get posixCode => normalizedValuesList.join(charUnderscore);
+  String get lowercasePosix => simpleValuesList.join(charUnderscore);
 
   String get code => normalizedValuesList.join(charHyphen);
+  String get lowercaseCode => simpleValuesList.join(charHyphen);
 
+  @Deprecated('use lowercaseCode')
   String get simpleCode => simpleValuesList.join(charHyphen);
 }
