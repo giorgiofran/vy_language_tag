@@ -37,6 +37,8 @@ class Region {
     return _existingRegions[region.code] ?? _insertRegion(region);
   }
 
+  factory Region.fromJson(jsonCode) => Region(jsonCode);
+
   String get simpleCode => code.toLowerCase();
 
   @override
@@ -44,4 +46,6 @@ class Region {
 
   @override
   int get hashCode => code.hashCode;
+
+  String toJson() => code;
 }

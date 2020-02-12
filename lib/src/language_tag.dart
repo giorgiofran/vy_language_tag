@@ -40,7 +40,7 @@ class LanguageTag {
   final Region region;
   final String variant;
 
-  //Todo missing extension and privateuse
+  //Todo missing extension and private use
 
   const LanguageTag._(this.language,
       {this.extlang, this.script, this.region, this.variant});
@@ -132,6 +132,8 @@ class LanguageTag {
         extlang: extlang, script: script, region: region, variant: variant);
   }
 
+  factory LanguageTag.fromJson(String jsonCode) => LanguageTag.parse(jsonCode);
+
   @override
   bool operator ==(other) {
     return other is LanguageTag &&
@@ -147,6 +149,8 @@ class LanguageTag {
 
   @override
   String toString() => code;
+
+  String toJson() => code;
 
   bool get canBeTruncated =>
       region != null ||

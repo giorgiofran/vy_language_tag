@@ -1,3 +1,8 @@
+## 0.1.2
+
+- Added Methods toJson() and fromJson() to LanguageTag class.
+- Added Methods toJson() and fromJson() to Region class.
+
 ## 0.1.1
 
 - Deprecated "simpleCode()" method
