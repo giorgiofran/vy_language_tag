@@ -12,7 +12,7 @@ void main() {
       localeCode = LanguageTag('EN');
       expect(localeCode.posixCode, 'en');
       expect(localeCode.code, 'en');
-      expect(localeCode.simpleCode, 'en');
+      expect(localeCode.lowercaseCode, 'en');
       expect(localeCode.posixCode, 'en');
       expect(localeCode.extlang, isEmpty);
       expect(localeCode.script, isEmpty);
@@ -23,7 +23,7 @@ void main() {
       localeCode = LanguageTag('zH', extlang: 'YuE');
       expect(localeCode.posixCode, 'zh_yue');
       expect(localeCode.code, 'zh-yue');
-      expect(localeCode.simpleCode, 'zh-yue');
+      expect(localeCode.lowercaseCode, 'zh-yue');
       expect(localeCode.language, 'zh');
       expect(localeCode.extlang, 'yue');
       expect(localeCode.script, isEmpty);
@@ -34,7 +34,7 @@ void main() {
       localeCode = LanguageTag('az', script: 'latn');
       expect(localeCode.posixCode, 'az_Latn');
       expect(localeCode.code, 'az-Latn');
-      expect(localeCode.simpleCode, 'az-latn');
+      expect(localeCode.lowercaseCode, 'az-latn');
       expect(localeCode.language, 'az');
       expect(localeCode.extlang, isEmpty);
       expect(localeCode.script, 'Latn');
@@ -45,7 +45,7 @@ void main() {
       localeCode = LanguageTag('it', region: 'it');
       expect(localeCode.posixCode, 'it_IT');
       expect(localeCode.code, 'it-IT');
-      expect(localeCode.simpleCode, 'it-it');
+      expect(localeCode.lowercaseCode, 'it-it');
       expect(localeCode.language, 'it');
       expect(localeCode.extlang, isEmpty);
       expect(localeCode.script, isEmpty);
@@ -56,7 +56,7 @@ void main() {
       localeCode = LanguageTag('es', region: '005');
       expect(localeCode.posixCode, 'es_005');
       expect(localeCode.code, 'es-005');
-      expect(localeCode.simpleCode, 'es-005');
+      expect(localeCode.lowercaseCode, 'es-005');
       expect(localeCode.language, 'es');
       expect(localeCode.extlang, isEmpty);
       expect(localeCode.script, isEmpty);
@@ -68,7 +68,7 @@ void main() {
       localeCode = LanguageTag('zh', script: 'hant', region: 'hk');
       expect(localeCode.posixCode, 'zh_Hant_HK');
       expect(localeCode.code, 'zh-Hant-HK');
-      expect(localeCode.simpleCode, 'zh-hant-hk');
+      expect(localeCode.lowercaseCode, 'zh-hant-hk');
       expect(localeCode.language, 'zh');
       expect(localeCode.extlang, isEmpty);
       expect(localeCode.script, 'Hant');
@@ -79,7 +79,7 @@ void main() {
       localeCode = LanguageTag('sl', variant: 'nedis');
       expect(localeCode.posixCode, 'sl_nedis');
       expect(localeCode.code, 'sl-nedis');
-      expect(localeCode.simpleCode, 'sl-nedis');
+      expect(localeCode.lowercaseCode, 'sl-nedis');
       expect(localeCode.language, 'sl');
       expect(localeCode.extlang, isEmpty);
       expect(localeCode.script, isEmpty);
@@ -92,7 +92,8 @@ void main() {
       localeCode = LanguageTag('sl', variant: 'nedis', region: 'it');
       expect(localeCode.posixCode, 'sl_IT_nedis');
       expect(localeCode.code, 'sl-IT-nedis');
-      expect(localeCode.simpleCode, 'sl-it-nedis');
+      expect(localeCode.lowercaseCode, 'sl-it-nedis');
+      expect(localeCode.lowercasePosix, 'sl_it_nedis');
       expect(localeCode.language, 'sl');
       expect(localeCode.extlang, isEmpty);
       expect(localeCode.script, isEmpty);
