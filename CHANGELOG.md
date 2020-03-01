@@ -1,3 +1,8 @@
+## 0.1.3
+
+- Prepared example and README files for pub.
+- Corrected some Lint warnings
+
 ## 0.1.2
 
 - Added Methods toJson() and fromJson() to LanguageTag class.

@@ -69,7 +69,7 @@ class LanguageTag {
     if (_variant.isNotEmpty && !_isCorrectVariant(_variant)) {
       throw ArgumentError('Incorrect variant subtag "$_variant"');
     }
-    LanguageTag languageTag = LanguageTag._(_language,
+    var languageTag = LanguageTag._(_language,
         extlang: _extlang, script: _script, region: _region, variant: _variant);
     if (_existingLocales.containsKey(languageTag.code)) {
       return _existingLocales[languageTag.code];
@@ -79,15 +79,15 @@ class LanguageTag {
   }
 
   factory LanguageTag.parse(String languageTag) {
-    List<String> subtags = languageTag.split(RegExp(r'[-_]'));
+    var subtags = languageTag.split(RegExp(r'[-_]'));
     String language;
     String extlang;
     String script;
     String region;
     String variant;
-    int insertionIndex = 0;
+    var insertionIndex = 0;
 
-    for (String subtag in subtags) {
+    for (var subtag in subtags) {
       if (insertionIndex == 0) {
         if (_isCorrectLanguage(subtag)) {
           language = subtag;
