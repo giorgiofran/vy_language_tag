@@ -1,3 +1,5 @@
+/// Copyright © 2020 Giorgio Franceschetti. All rights reserved.
+
 import 'package:vy_language_tag/src/subtags/region.dart';
 import 'package:test/test.dart';
 

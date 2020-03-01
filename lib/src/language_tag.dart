@@ -1,8 +1,8 @@
-import 'dart:collection';
+/// Copyright © 2020 Giorgio Franceschetti. All rights reserved.
 
+import 'dart:collection';
 import 'package:vy_language_tag/src/utils/constants.dart';
 import 'package:vy_string_utils/vy_string_utils.dart';
-
 import 'subtags/region.dart';
 
 Map<String, LanguageTag> _existingLocales = SplayTreeMap<String, LanguageTag>();

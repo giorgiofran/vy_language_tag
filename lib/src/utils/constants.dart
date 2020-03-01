@@ -1,3 +1,5 @@
+/// Copyright © 2020 Giorgio Franceschetti. All rights reserved.
+
 const charHyphen = '-';
 const charUnderscore = '_';
 

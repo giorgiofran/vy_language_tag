@@ -1,5 +1,6 @@
-import 'dart:collection';
+/// Copyright © 2020 Giorgio Franceschetti. All rights reserved.
 
+import 'dart:collection';
 import 'package:vy_string_utils/vy_string_utils.dart';
 
 final Map<String, Region> _existingRegions = SplayTreeMap<String, Region>();
