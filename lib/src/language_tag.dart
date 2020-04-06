@@ -55,7 +55,8 @@ class LanguageTag {
     if (_extlang.isNotEmpty && !_isCorrectExtlang(_extlang)) {
       throw ArgumentError('Incorrect extlang subtag "$_extlang"');
     }
-    var _script = (script?.isEmpty ?? true) ? '' : capitalize(script);
+    var _script =
+        (script?.isEmpty ?? true) ? '' : capitalizeAndLowercase(script);
     if (_script.isNotEmpty && !_isCorrectScript(_script)) {
       throw ArgumentError('Incorrect script subtag "$_script"');
     }

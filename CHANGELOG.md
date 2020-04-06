@@ -1,3 +1,13 @@
+# Changelog
+
+### 0.1.5
+
+- Small fixes
+
+## 0.1.4
+
+- Updated copyrights
+
 ## 0.1.3
 
 - Prepared example and README files for pub.
