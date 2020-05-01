@@ -80,6 +80,9 @@ class LanguageTag {
   }
 
   factory LanguageTag.parse(String languageTag) {
+    if (unfilled(languageTag)) {
+      throw ArgumentError('Invalid language tag to be parsed (null or blank)');
+    }
     var subtags = languageTag.split(RegExp(r'[-_]'));
     String language;
     String extlang;

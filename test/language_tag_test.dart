@@ -134,6 +134,8 @@ void main() {
     });
 
     test('Parse error', () {
+      expect(() => LanguageTag.parse(null), throwsArgumentError);
+      expect(() => LanguageTag.parse(''), throwsArgumentError);
       expect(() => LanguageTag.parse('en1'), throwsArgumentError);
       expect(() => LanguageTag.parse('e'), throwsArgumentError);
       expect(() => LanguageTag.parse('engl'), throwsArgumentError);
