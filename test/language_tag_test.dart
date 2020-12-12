@@ -13,6 +13,7 @@ void main() {
     test('Minimal', () {
       localeCode = LanguageTag('EN');
       expect(localeCode.posixCode, 'en');
+      expect(localeCode.icuCode, 'en');
       expect(localeCode.code, 'en');
       expect(localeCode.lowercaseCode, 'en');
       expect(localeCode.posixCode, 'en');
@@ -23,7 +24,8 @@ void main() {
     });
     test('Extended Language', () {
       localeCode = LanguageTag('zH', extlang: 'YuE');
-      expect(localeCode.posixCode, 'zh_yue');
+      expect(localeCode.posixCode, 'zh');
+      expect(localeCode.icuCode, 'zh');
       expect(localeCode.code, 'zh-yue');
       expect(localeCode.lowercaseCode, 'zh-yue');
       expect(localeCode.language, 'zh');
@@ -34,8 +36,10 @@ void main() {
     });
     test('Script', () {
       localeCode = LanguageTag('az', script: 'latn');
-      expect(localeCode.posixCode, 'az_Latn');
+      expect(localeCode.posixCode, 'az');
+      expect(localeCode.icuCode, 'az_Latn');
       expect(localeCode.code, 'az-Latn');
+      expect(localeCode.lowercaseIcu, 'az_latn');
       expect(localeCode.lowercaseCode, 'az-latn');
       expect(localeCode.language, 'az');
       expect(localeCode.extlang, isEmpty);
@@ -46,6 +50,7 @@ void main() {
     test('Region - regular', () {
       localeCode = LanguageTag('it', region: 'it');
       expect(localeCode.posixCode, 'it_IT');
+      expect(localeCode.icuCode, 'it_IT');
       expect(localeCode.code, 'it-IT');
       expect(localeCode.lowercaseCode, 'it-it');
       expect(localeCode.language, 'it');
@@ -57,6 +62,7 @@ void main() {
     test('Region - Macro area (Spanish_South America)', () {
       localeCode = LanguageTag('es', region: '005');
       expect(localeCode.posixCode, 'es_005');
+      expect(localeCode.icuCode, 'es_005');
       expect(localeCode.code, 'es-005');
       expect(localeCode.lowercaseCode, 'es-005');
       expect(localeCode.language, 'es');
@@ -68,7 +74,8 @@ void main() {
 
     test('Region with script (Tradition Chinese in Hong-Kong)', () {
       localeCode = LanguageTag('zh', script: 'hant', region: 'hk');
-      expect(localeCode.posixCode, 'zh_Hant_HK');
+      expect(localeCode.posixCode, 'zh_HK');
+      expect(localeCode.icuCode, 'zh_Hant_HK');
       expect(localeCode.code, 'zh-Hant-HK');
       expect(localeCode.lowercaseCode, 'zh-hant-hk');
       expect(localeCode.language, 'zh');
@@ -79,7 +86,8 @@ void main() {
     });
     test('Variant (the Nadiza dialect of Slovenian)', () {
       localeCode = LanguageTag('sl', variant: 'nedis');
-      expect(localeCode.posixCode, 'sl_nedis');
+      expect(localeCode.posixCode, 'sl');
+      expect(localeCode.icuCode, 'sl');
       expect(localeCode.code, 'sl-nedis');
       expect(localeCode.lowercaseCode, 'sl-nedis');
       expect(localeCode.language, 'sl');
@@ -92,10 +100,12 @@ void main() {
         'Regional Variant '
         '(the Nadiza dialect of Slovenian that is spoken in Italy)', () {
       localeCode = LanguageTag('sl', variant: 'nedis', region: 'it');
-      expect(localeCode.posixCode, 'sl_IT_nedis');
+      expect(localeCode.posixCode, 'sl_IT');
+      expect(localeCode.icuCode, 'sl_IT');
       expect(localeCode.code, 'sl-IT-nedis');
       expect(localeCode.lowercaseCode, 'sl-it-nedis');
-      expect(localeCode.lowercasePosix, 'sl_it_nedis');
+      expect(localeCode.lowercasePosix, 'sl_it');
+      expect(localeCode.lowercaseIcu, 'sl_it');
       expect(localeCode.language, 'sl');
       expect(localeCode.extlang, isEmpty);
       expect(localeCode.script, isEmpty);
@@ -134,7 +144,7 @@ void main() {
     });
 
     test('Parse error', () {
-      expect(() => LanguageTag.parse(null), throwsArgumentError);
+      //expect(() => LanguageTag.parse(null), throwsArgumentError);
       expect(() => LanguageTag.parse(''), throwsArgumentError);
       expect(() => LanguageTag.parse('en1'), throwsArgumentError);
       expect(() => LanguageTag.parse('e'), throwsArgumentError);

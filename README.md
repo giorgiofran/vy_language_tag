@@ -1,12 +1,13 @@
 # Language Tag Representation
 
 LanguageTag is a class used for generating and checking language tags.
+The language tag follows the IETF BCP 47 specifications.
 
 It can create a language Tag given all the subtags that are part of it or parsing an existing languageTag String.
 
 The implementation is not yet complete, but it should be enough for the majority of cases
 
-### What is missing
+## What is missing
 
 - There is no control on the values inserted, except for the length (and position). This will be fixed in a future release.
 - The extension and private use subtags are not managed yet.

@@ -8,15 +8,16 @@ import 'subtags/region.dart';
 Map<String, LanguageTag> _existingLocales = SplayTreeMap<String, LanguageTag>();
 
 bool _isCorrectLanguage(String subtag) =>
-    subtag != null &&
+    /* subtag != null && */
     ((subtag.length > 1 && subtag.length < 4) ||
         (subtag.length > 4 && subtag.length < 9)) &&
     onlyContainsAlpha(subtag);
+
 bool _isCorrectExtlang(String subtag) =>
-    subtag != null && subtag.length == 3 && onlyContainsAlpha(subtag);
+    /* subtag != null && */ subtag.length == 3 && onlyContainsAlpha(subtag);
 
 bool _isCorrectScript(String subtag) =>
-    subtag != null && subtag.length == 4 && onlyContainsAlpha(subtag);
+    /* subtag != null && */ subtag.length == 4 && onlyContainsAlpha(subtag);
 
 bool _isCorrectRegion(String subtag) {
   try {
@@ -28,7 +29,7 @@ bool _isCorrectRegion(String subtag) {
 }
 
 bool _isCorrectVariant(String subtag) =>
-    subtag != null &&
+    /* subtag != null && */
     ((subtag.length > 4 && subtag.length < 9) ||
         (subtag.length == 4 && onlyContainsDigits(subtag[0])));
 
@@ -37,17 +38,20 @@ class LanguageTag {
   final String language;
   final String extlang;
   final String script;
-  final Region region;
+  final Region? region;
   final String variant;
 
   //Todo missing extension and private use
 
   const LanguageTag._(this.language,
-      {this.extlang, this.script, this.region, this.variant});
+      {String? extlang, String? script, this.region, String? variant})
+      : extlang = extlang ?? '',
+        script = script ?? '',
+        variant = variant ?? '';
 
   factory LanguageTag(String language,
-      {String extlang, String script, String region, String variant}) {
-    var _language = language?.toLowerCase() ?? '';
+      {String? extlang, String? script, String? region, String? variant}) {
+    var _language = language.toLowerCase();
     if (!_isCorrectLanguage(_language)) {
       throw ArgumentError('Incorrect language subtag "$_language"');
     }
@@ -55,15 +59,14 @@ class LanguageTag {
     if (_extlang.isNotEmpty && !_isCorrectExtlang(_extlang)) {
       throw ArgumentError('Incorrect extlang subtag "$_extlang"');
     }
-    var _script =
-        (script?.isEmpty ?? true) ? '' : capitalizeAndLowercase(script);
+    var _script = unfilled(script) ? '' : capitalizeAndLowercase(script!);
     if (_script.isNotEmpty && !_isCorrectScript(_script)) {
       throw ArgumentError('Incorrect script subtag "$_script"');
     }
     // tries to construct a Region to test if the code is correct
-    Region _region;
-    if (!unfilled(region)) {
-      _region = Region(region);
+    Region? _region;
+    if (filled(region)) {
+      _region = Region(region!);
     }
 
     var _variant = variant?.toLowerCase() ?? '';
@@ -73,7 +76,7 @@ class LanguageTag {
     var languageTag = LanguageTag._(_language,
         extlang: _extlang, script: _script, region: _region, variant: _variant);
     if (_existingLocales.containsKey(languageTag.code)) {
-      return _existingLocales[languageTag.code];
+      return _existingLocales[languageTag.code]!;
     }
     _existingLocales[languageTag.code] = languageTag;
     return languageTag;
@@ -84,11 +87,11 @@ class LanguageTag {
       throw ArgumentError('Invalid language tag to be parsed (null or blank)');
     }
     var subtags = languageTag.split(RegExp(r'[-_]'));
-    String language;
-    String extlang;
-    String script;
-    String region;
-    String variant;
+    var language = '';
+    var extlang = '';
+    var script = '';
+    var region = '';
+    var variant = '';
     var insertionIndex = 0;
 
     for (var subtag in subtags) {
@@ -165,7 +168,7 @@ class LanguageTag {
   LanguageTag get truncated {
     if (variant.isNotEmpty) {
       return LanguageTag(language,
-          extlang: extlang, script: script, region: region.code);
+          extlang: extlang, script: script, region: region?.code ?? '');
     } else if (region != null) {
       return LanguageTag(language, extlang: extlang, script: script);
     } else if (script.isNotEmpty) {
@@ -180,20 +183,63 @@ class LanguageTag {
         language,
         if (extlang.isNotEmpty) extlang,
         if (script.isNotEmpty) script,
-        if (region != null) region.code,
+        if (region != null) region!.code,
         if (variant.isNotEmpty) variant
+      ];
+
+  /// List of subtags in presentation order
+  /// Exclude variants and ext languages
+  List<String> get icuValuesList => <String>[
+        language,
+        if (script.isNotEmpty) script,
+        if (region != null) region!.code,
+      ];
+
+  /// List of subtags in presentation order
+  /// Exclude script, variants and ext languages
+  List<String> get posixValuesList => <String>[
+        language,
+        if (region != null) region!.code,
       ];
 
   List<String> get simpleValuesList => <String>[
         language,
         if (extlang.isNotEmpty) extlang,
         if (script.isNotEmpty) script.toLowerCase(),
-        if (region != null) region.simpleCode,
+        if (region != null) region!.simpleCode,
         if (variant.isNotEmpty) variant
       ];
 
-  String get posixCode => normalizedValuesList.join(charUnderscore);
-  String get lowercasePosix => simpleValuesList.join(charUnderscore);
+  /// List of lowercase subtags in presentation order.
+  /// Exclude variants and ext languages
+  List<String> get icuSimpleValuesList => <String>[
+        language,
+        if (script.isNotEmpty) script.toLowerCase(),
+        if (region != null) region!.simpleCode,
+      ];
+
+  /// List of lowercase subtags in presentation order.
+  /// Exclude script, variants and ext languages
+  List<String> get posixSimpleValuesList => <String>[
+        language,
+        if (region != null) region!.simpleCode,
+      ];
+
+  /// At present this method simply returns subtags separated by underscores
+  /// instead of hyphens
+  String get posixCode => posixValuesList.join(charUnderscore);
+
+  /// At present this method simply returns lowercase subtags separated
+  /// by underscores instead of hyphens
+  String get lowercasePosix => posixSimpleValuesList.join(charUnderscore);
+
+  /// At present this method simply returns subtags separated by underscores
+  /// instead of hyphens and exclude variants and extended languages
+  String get icuCode => icuValuesList.join(charUnderscore);
+
+  /// At present this method simply returns lowercase subtags separated
+  /// by underscores instead of hyphens and exclude variants and ext languages
+  String get lowercaseIcu => icuSimpleValuesList.join(charUnderscore);
 
   String get code => normalizedValuesList.join(charHyphen);
   String get lowercaseCode => simpleValuesList.join(charHyphen);

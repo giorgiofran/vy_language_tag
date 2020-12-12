@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0-nullsafety
+
+- Moved to null-safety
+- Change: The language value in LanguageTag constructor cannot be null
+- Created simple conversion methods to ICU code and updated those to POSIX. These are simple conversion methods that consider only the portion of codes (language, region and script) that are generally compatible and exclude the others. This does not mean that a code valid in BCP 47 is also a valid POSIX or ICU one. No check is done.
+
 ## 0.1.5
 
 - Small fixes
