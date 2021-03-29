@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0
+
+- Updated dependencies
+
 ## 0.2.0-nullsafety
 
 - Moved to null-safety
