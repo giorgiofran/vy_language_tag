@@ -51,30 +51,30 @@ class LanguageTag {
 
   factory LanguageTag(String language,
       {String? extlang, String? script, String? region, String? variant}) {
-    var _language = language.toLowerCase();
-    if (!_isCorrectLanguage(_language)) {
-      throw ArgumentError('Incorrect language subtag "$_language"');
+    var locLanguage = language.toLowerCase();
+    if (!_isCorrectLanguage(locLanguage)) {
+      throw ArgumentError('Incorrect language subtag "$locLanguage"');
     }
-    var _extlang = extlang?.toLowerCase() ?? '';
-    if (_extlang.isNotEmpty && !_isCorrectExtlang(_extlang)) {
-      throw ArgumentError('Incorrect extlang subtag "$_extlang"');
+    var locExtlang = extlang?.toLowerCase() ?? '';
+    if (locExtlang.isNotEmpty && !_isCorrectExtlang(locExtlang)) {
+      throw ArgumentError('Incorrect extlang subtag "$locExtlang"');
     }
-    var _script = unfilled(script) ? '' : capitalizeAndLowercase(script!);
-    if (_script.isNotEmpty && !_isCorrectScript(_script)) {
-      throw ArgumentError('Incorrect script subtag "$_script"');
+    var locScript = unfilled(script) ? '' : capitalizeAndLowercase(script!);
+    if (locScript.isNotEmpty && !_isCorrectScript(locScript)) {
+      throw ArgumentError('Incorrect script subtag "$locScript"');
     }
     // tries to construct a Region to test if the code is correct
-    Region? _region;
+    Region? locRegion;
     if (filled(region)) {
-      _region = Region(region!);
+      locRegion = Region(region!);
     }
 
-    var _variant = variant?.toLowerCase() ?? '';
-    if (_variant.isNotEmpty && !_isCorrectVariant(_variant)) {
-      throw ArgumentError('Incorrect variant subtag "$_variant"');
+    var locVariant = variant?.toLowerCase() ?? '';
+    if (locVariant.isNotEmpty && !_isCorrectVariant(locVariant)) {
+      throw ArgumentError('Incorrect variant subtag "$locVariant"');
     }
-    var languageTag = LanguageTag._(_language,
-        extlang: _extlang, script: _script, region: _region, variant: _variant);
+    var languageTag = LanguageTag._(locLanguage,
+        extlang: locExtlang, script: locScript, region: locRegion, variant: locVariant);
     if (_existingLocales.containsKey(languageTag.code)) {
       return _existingLocales[languageTag.code]!;
     }

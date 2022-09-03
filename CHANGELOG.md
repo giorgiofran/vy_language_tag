@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+
+- Applying Lints
+
 ## 0.2.0
 
 - Updated dependencies
