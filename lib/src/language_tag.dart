@@ -74,7 +74,10 @@ class LanguageTag {
       throw ArgumentError('Incorrect variant subtag "$locVariant"');
     }
     var languageTag = LanguageTag._(locLanguage,
-        extlang: locExtlang, script: locScript, region: locRegion, variant: locVariant);
+        extlang: locExtlang,
+        script: locScript,
+        region: locRegion,
+        variant: locVariant);
     if (_existingLocales.containsKey(languageTag.code)) {
       return _existingLocales[languageTag.code]!;
     }
